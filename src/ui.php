@@ -50,7 +50,7 @@ if (isset($_POST['gatsby_wp_acf_nullify_form_wp_nonce']) && wp_verify_nonce($_PO
     }
 </style>
 
-<h2>Gatsby WordPress ACF Nullify<h2>
+<h2>Gatsby ACF Nullify for WordPress<h2>
 
 <!-- <p>No options available yet!</p> -->
 
