@@ -1,8 +1,8 @@
 <?php
 /**
- * @package Gatsby_Wordpress_Acf_Nullify
+ * @package Gatsby_WP_ACF_Nullify
  * @version 1.0.0
- * Plugin Name: Gatsby ACF Nullify for WordPress
+ * Plugin Name: Gatsby WP ACF Nullify
  * Plugin URI: https://github.com/jabranr/gatsby-wordpress-acf-nullify
  * Description: Set Advanced Custom Fields (ACF) empty field value as <code>null</code> instead of <code>false</code> to avoid GraphQL error in GatsbyJS.
  * Author: Jabran Rafique <hello@jabran.me>

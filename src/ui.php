@@ -50,9 +50,7 @@ if (isset($_POST['gatsby_wp_acf_nullify_form_wp_nonce']) && wp_verify_nonce($_PO
     }
 </style>
 
-<h2>Gatsby ACF Nullify for WordPress<h2>
-
-<!-- <p>No options available yet!</p> -->
+<h2>Gatsby WP ACF Nullify<h2>
 
 <form method="post" class="gatsby_wp_acf_nullify_form" action="<?php echo admin_url(htmlentities(basename($_SERVER['PHP_SELF']) . '?' .$_SERVER['QUERY_STRING'])); ?>">
     <div class="form-group">
