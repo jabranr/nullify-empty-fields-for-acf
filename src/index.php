@@ -1,13 +1,11 @@
 <?php
 /**
- * @package Gatsby_WP_ACF_Nullify
- * @version 1.0.0
- * Plugin Name: Gatsby WP ACF Nullify
- * Plugin URI: https://github.com/jabranr/gatsby-wordpress-acf-nullify
+ * Plugin Name: ACF empty fields nullify
+ * Plugin URI: https://github.com/jabranr/acf-empty-fields-nullify
  * Description: Set Advanced Custom Fields (ACF) empty field value as <code>null</code> instead of <code>false</code> to avoid GraphQL error in GatsbyJS.
  * Author: Jabran Rafique <hello@jabran.me>
  * Version: 1.0.0
- * Author URI: https://jabran.me?utm_source=gatsby_wp_acf_nullify
+ * Author URI: https://jabran.me?utm_source=acf-empty-fields-nullify
  * License: MIT License
  *
  * Copyright 2020 Jabran Rafique
@@ -24,10 +22,8 @@ require_once(plugin_dir_path(__FILE__) . '/settings.php');
 /**
  * Add settings link
  */
-function gatsby_wp_acf_nullify_settings_link( $links ) {
-    $links[] = '<a href="' .
-    admin_url( 'plugins.php?page=wp-acf-nullify' ) .
-    '">' . __('Settings') . '</a>';
+function acf_empty_fields_nullify_settings_link( $links ) {
+    $links[] = sprintf('<a href="%s">%s</a>', admin_url('plugins.php?page=acf-empty-fields-nullify'), __('Settings'));
 	return $links;
 }
 
@@ -41,7 +37,7 @@ function gatsby_wp_acf_nullify_settings_link( $links ) {
  * @link https://www.gatsbyjs.org/packages/gatsby-source-wordpress/#graphql-error---unknown-field-on-acf
  * @return mixed
  */
-function gatsby_wp_acf_nullify_empty($value, $post_id, $field) {
+function acf_empty_fields_nullify_empty($value, $post_id, $field) {
     if (empty($value)) {
         return null;
     }
@@ -52,22 +48,22 @@ function gatsby_wp_acf_nullify_empty($value, $post_id, $field) {
 /**
  * Uninstall hook callback function
  */
-function gatsby_wp_acf_nullify_uninstall() {
-    $nullifyTypes = get_option('gatsby_wp_acf_nullify_types');
+function acf_empty_fields_nullify_uninstall() {
+    $nullifyTypes = get_option('acf_empty_fields_nullify_types');
 
     if (empty($nullifyTypes)) {
-        remove_filter('acf/format_value', 'gatsby_wp_acf_nullify_empty', 100, 3);
+        remove_filter('acf/format_value', 'acf_empty_fields_nullify_empty', 100, 3);
     } else {
         $nullifyTypes = explode(',', $nullifyTypes);
 
         foreach($nullifyTypes as $nullifyType) {
             if ($remove) {
-                remove_filter('acf/format_value/type=' . $nullifyType, 'gatsby_wp_acf_nullify_empty', 100, 3);
+                remove_filter('acf/format_value/type=' . $nullifyType, 'acf_empty_fields_nullify_empty', 100, 3);
             }
         }
     }
 
-    delete_option('gatsby_wp_acf_nullify_types');
+    delete_option('acf_empty_fields_nullify_types');
 }
 
 /**
@@ -75,52 +71,52 @@ function gatsby_wp_acf_nullify_uninstall() {
  *
  * @param $remove boolean
  */
-function gatsby_wp_acf_nullify_toggle($remove = false) {
-    $nullifyTypes = get_option('gatsby_wp_acf_nullify_types');
+function acf_empty_fields_nullify_toggle($remove = false) {
+    $nullifyTypes = get_option('acf_empty_fields_nullify_types');
 
     if (empty($nullifyTypes)) {
         if ($remove) {
-            remove_filter('acf/format_value', 'gatsby_wp_acf_nullify_empty', 100, 3);
+            remove_filter('acf/format_value', 'acf_empty_fields_nullify_empty', 100, 3);
         } else {
-            add_filter('acf/format_value', 'gatsby_wp_acf_nullify_empty', 100, 3);
+            add_filter('acf/format_value', 'acf_empty_fields_nullify_empty', 100, 3);
         }
     } else {
         $nullifyTypes = explode(',', $nullifyTypes);
 
         foreach($nullifyTypes as $nullifyType) {
             if ($remove) {
-                remove_filter('acf/format_value/type=' . $nullifyType, 'gatsby_wp_acf_nullify_empty', 100, 3);
+                remove_filter('acf/format_value/type=' . $nullifyType, 'acf_empty_fields_nullify_empty', 100, 3);
             } else {
-                add_filter('acf/format_value/type=' . $nullifyType, 'gatsby_wp_acf_nullify_empty', 100, 3);
+                add_filter('acf/format_value/type=' . $nullifyType, 'acf_empty_fields_nullify_empty', 100, 3);
             }
         }
     }
 
-    add_filter('plugin_action_links_'. plugin_basename(__FILE__), 'gatsby_wp_acf_nullify_settings_link', 100, 3);
+    add_filter('plugin_action_links_'. plugin_basename(__FILE__), 'acf_empty_fields_nullify_settings_link', 100, 3);
 }
 
 /**
  * Deactivate hook callback function
  */
-function gatsby_wp_acf_nullify_deactivate() {
-    gatsby_wp_acf_nullify_toggle(true);
+function acf_empty_fields_nullify_deactivate() {
+    acf_empty_fields_nullify_toggle(true);
 }
 
 /**
  * Activate hook callback function
  */
-function gatsby_wp_acf_nullify_activate() {
+function acf_empty_fields_nullify_activate() {
     if (!is_plugin_active('advanced-custom-fields/acf.php')) {
-        wp_die(sprintf('This plugin only works with <a href="%s" target="_blank" rel="noopener">Advanced Custom Fields (ACF)</a>. Please install and activate ACF before using this plugin.', 'https://wordpress.org/plugins/advanced-custom-fields/?utm_source=gatsby-wordpress-acf-nullify'));
+        wp_die(sprintf('This plugin only works with <a href="%s" target="_blank" rel="noopener">Advanced Custom Fields (ACF)</a>. Please install and activate ACF before using this plugin.', 'https://wordpress.org/plugins/advanced-custom-fields/?utm_source=acf-empty-fields-nullify'));
     }
 
-    gatsby_wp_acf_nullify_toggle();
+    acf_empty_fields_nullify_toggle();
 }
 
 // default setup
-gatsby_wp_acf_nullify_toggle();
+acf_empty_fields_nullify_toggle();
 
 // hooks
-register_activation_hook( __FILE__, 'gatsby_wp_acf_nullify_activate' );
-register_deactivation_hook( __FILE__, 'gatsby_wp_acf_nullify_deactivate' );
-register_uninstall_hook( __FILE__, 'gatsby_wp_acf_nullify_uninstall' );
+register_activation_hook( __FILE__, 'acf_empty_fields_nullify_activate' );
+register_deactivation_hook( __FILE__, 'acf_empty_fields_nullify_deactivate' );
+register_uninstall_hook( __FILE__, 'acf_empty_fields_nullify_uninstall' );

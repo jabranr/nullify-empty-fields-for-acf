@@ -14,7 +14,8 @@ services:
       WORDPRESS_DEBUG: 1
     volumes:
       - wordpress:/var/www/html
-      - ./src:/var/www/html/wp-content/plugins/gatsby-wordpress-acf-nullify
+      - plugins:/var/www/html/wp-content/plugins
+      - ./src:/var/www/html/wp-content/plugins/acf-empty-fields-nullify
 
   db:
     image: mysql:5.7
@@ -29,4 +30,5 @@ services:
 
 volumes:
   wordpress:
+  plugins:
   db:

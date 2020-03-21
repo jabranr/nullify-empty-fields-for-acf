@@ -1,4 +1,4 @@
-=== Gatsby WP ACF Nullify ===
+=== ACF empty fields nullify ===
 Contributors: jabranr
 Donate link: https://paypal.me/jabranr
 Tags: gatsby, graphql, acf, advanced-custom-fields, wordpress
