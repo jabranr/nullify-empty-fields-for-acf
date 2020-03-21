@@ -2,6 +2,8 @@
 
 Set Advanced Custom Fields (ACF) empty field value as `null` instead of `false` to avoid GraphQL error in GatsbyJS.
 
+**Issues:** Report any issues at https://github.com/jabranr/acf-empty-fields-nullify/issues
+
 ## License
 
 MIT License
