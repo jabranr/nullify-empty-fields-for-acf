@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: ACF empty fields nullify
- * Plugin URI: https://github.com/jabranr/acf-empty-fields-nullify
+ * Plugin Name: Nullify empty fields for ACF
+ * Plugin URI: https://github.com/jabranr/nullify-empty-fields-for-acf
  * Description: Set Advanced Custom Fields (ACF) empty field value as <code>null</code> instead of <code>false</code> to avoid GraphQL error in GatsbyJS.
  * Author: Jabran Rafique <hello@jabran.me>
  * Version: 1.0.0
- * Author URI: https://jabran.me?utm_source=acf-empty-fields-nullify
+ * Author URI: https://jabran.me?utm_source=nullify-empty-fields-for-acf
  * License: MIT License
  *
  * Copyright 2020 Jabran Rafique
@@ -22,8 +22,8 @@ require_once(plugin_dir_path(__FILE__) . '/settings.php');
 /**
  * Add settings link
  */
-function acf_empty_fields_nullify_settings_link( $links ) {
-    $links[] = sprintf('<a href="%s">%s</a>', admin_url('plugins.php?page=acf-empty-fields-nullify'), __('Settings'));
+function nullify_empty_fields_for_acf_settings_link( $links ) {
+    $links[] = sprintf('<a href="%s">%s</a>', admin_url('plugins.php?page=nullify-empty-fields-for-acf'), __('Settings'));
 	return $links;
 }
 
@@ -37,7 +37,7 @@ function acf_empty_fields_nullify_settings_link( $links ) {
  * @link https://www.gatsbyjs.org/packages/gatsby-source-wordpress/#graphql-error---unknown-field-on-acf
  * @return mixed
  */
-function acf_empty_fields_nullify_empty($value, $post_id, $field) {
+function nullify_empty_fields_for_acf_empty($value, $post_id, $field) {
     if (empty($value)) {
         return null;
     }
@@ -48,22 +48,22 @@ function acf_empty_fields_nullify_empty($value, $post_id, $field) {
 /**
  * Uninstall hook callback function
  */
-function acf_empty_fields_nullify_uninstall() {
-    $nullifyTypes = get_option('acf_empty_fields_nullify_types');
+function nullify_empty_fields_for_acf_uninstall() {
+    $nullifyTypes = get_option('nullify_empty_fields_for_acf_types');
 
     if (empty($nullifyTypes)) {
-        remove_filter('acf/format_value', 'acf_empty_fields_nullify_empty', 100, 3);
+        remove_filter('acf/format_value', 'nullify_empty_fields_for_acf_empty', 100, 3);
     } else {
         $nullifyTypes = explode(',', $nullifyTypes);
 
         foreach($nullifyTypes as $nullifyType) {
             if ($remove) {
-                remove_filter('acf/format_value/type=' . $nullifyType, 'acf_empty_fields_nullify_empty', 100, 3);
+                remove_filter('acf/format_value/type=' . $nullifyType, 'nullify_empty_fields_for_acf_empty', 100, 3);
             }
         }
     }
 
-    delete_option('acf_empty_fields_nullify_types');
+    delete_option('nullify_empty_fields_for_acf_types');
 }
 
 /**
@@ -71,52 +71,52 @@ function acf_empty_fields_nullify_uninstall() {
  *
  * @param $remove boolean
  */
-function acf_empty_fields_nullify_toggle($remove = false) {
-    $nullifyTypes = get_option('acf_empty_fields_nullify_types');
+function nullify_empty_fields_for_acf_toggle($remove = false) {
+    $nullifyTypes = get_option('nullify_empty_fields_for_acf_types');
 
     if (empty($nullifyTypes)) {
         if ($remove) {
-            remove_filter('acf/format_value', 'acf_empty_fields_nullify_empty', 100, 3);
+            remove_filter('acf/format_value', 'nullify_empty_fields_for_acf_empty', 100, 3);
         } else {
-            add_filter('acf/format_value', 'acf_empty_fields_nullify_empty', 100, 3);
+            add_filter('acf/format_value', 'nullify_empty_fields_for_acf_empty', 100, 3);
         }
     } else {
         $nullifyTypes = explode(',', $nullifyTypes);
 
         foreach($nullifyTypes as $nullifyType) {
             if ($remove) {
-                remove_filter('acf/format_value/type=' . $nullifyType, 'acf_empty_fields_nullify_empty', 100, 3);
+                remove_filter('acf/format_value/type=' . $nullifyType, 'nullify_empty_fields_for_acf_empty', 100, 3);
             } else {
-                add_filter('acf/format_value/type=' . $nullifyType, 'acf_empty_fields_nullify_empty', 100, 3);
+                add_filter('acf/format_value/type=' . $nullifyType, 'nullify_empty_fields_for_acf_empty', 100, 3);
             }
         }
     }
 
-    add_filter('plugin_action_links_'. plugin_basename(__FILE__), 'acf_empty_fields_nullify_settings_link', 100, 3);
+    add_filter('plugin_action_links_'. plugin_basename(__FILE__), 'nullify_empty_fields_for_acf_settings_link', 100, 3);
 }
 
 /**
  * Deactivate hook callback function
  */
-function acf_empty_fields_nullify_deactivate() {
-    acf_empty_fields_nullify_toggle(true);
+function nullify_empty_fields_for_acf_deactivate() {
+    nullify_empty_fields_for_acf_toggle(true);
 }
 
 /**
  * Activate hook callback function
  */
-function acf_empty_fields_nullify_activate() {
+function nullify_empty_fields_for_acf_activate() {
     if (!is_plugin_active('advanced-custom-fields/acf.php')) {
-        wp_die(sprintf('This plugin only works with <a href="%s" target="_blank" rel="noopener">Advanced Custom Fields (ACF)</a>. Please install and activate ACF before using this plugin.', 'https://wordpress.org/plugins/advanced-custom-fields/?utm_source=acf-empty-fields-nullify'));
+        wp_die(sprintf('This plugin only works with <a href="%s" target="_blank" rel="noopener">Advanced Custom Fields (ACF)</a>. Please install and activate ACF before using this plugin.', 'https://wordpress.org/plugins/advanced-custom-fields/?utm_source=nullify-empty-fields-for-acf'));
     }
 
-    acf_empty_fields_nullify_toggle();
+    nullify_empty_fields_for_acf_toggle();
 }
 
 // default setup
-acf_empty_fields_nullify_toggle();
+nullify_empty_fields_for_acf_toggle();
 
 // hooks
-register_activation_hook( __FILE__, 'acf_empty_fields_nullify_activate' );
-register_deactivation_hook( __FILE__, 'acf_empty_fields_nullify_deactivate' );
-register_uninstall_hook( __FILE__, 'acf_empty_fields_nullify_uninstall' );
+register_activation_hook( __FILE__, 'nullify_empty_fields_for_acf_activate' );
+register_deactivation_hook( __FILE__, 'nullify_empty_fields_for_acf_deactivate' );
+register_uninstall_hook( __FILE__, 'nullify_empty_fields_for_acf_uninstall' );

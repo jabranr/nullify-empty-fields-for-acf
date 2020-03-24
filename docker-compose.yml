@@ -15,7 +15,7 @@ services:
     volumes:
       - wordpress:/var/www/html
       - plugins:/var/www/html/wp-content/plugins
-      - ./src:/var/www/html/wp-content/plugins/acf-empty-fields-nullify
+      - ./src:/var/www/html/wp-content/plugins/nullify-empty-fields-for-acf
 
   db:
     image: mysql:5.7

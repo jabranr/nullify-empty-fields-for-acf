@@ -6,18 +6,18 @@
  * @author Jabran Rafique
  */
 
-function acf_empty_fields_nullify_add_ui() {
+function nullify_empty_fields_for_acf_add_ui() {
     include_once(plugin_dir_path(__FILE__) . '/ui.php');
 }
 
-function acf_empty_fields_nullify_add_settings() {
+function nullify_empty_fields_for_acf_add_settings() {
     add_plugins_page(
-        'Settings for ACF empty fields nullify',
-        'ACF empty fields nullify',
+        'Settings for Nullify empty fields for ACF',
+        'Nullify empty fields for ACF',
         'manage_options',
-        'acf-empty-fields-nullify',
-        'acf_empty_fields_nullify_add_ui'
+        'nullify-empty-fields-for-acf',
+        'nullify_empty_fields_for_acf_add_ui'
     );
 }
 
-add_action('admin_menu', 'acf_empty_fields_nullify_add_settings');
+add_action('admin_menu', 'nullify_empty_fields_for_acf_add_settings');
