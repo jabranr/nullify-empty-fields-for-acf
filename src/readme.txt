@@ -4,7 +4,7 @@ Donate link: https://paypal.me/jabranr
 Tags: gatsby, graphql, acf, advanced-custom-fields, wordpress
 Requires at least: 5.0
 Tested up to: 5.3.2
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 Requires PHP: 7.1
 License: MIT License
 License URI: https://opensource.org/licenses/MIT
@@ -26,6 +26,9 @@ Set Advanced Custom Fields (ACF) empty field value as `null` instead of `false` 
 - Use settings to choose specific types to nullify
 
 == Changelog ==
+
+= 1.1.0 =
+* Support for Advanced Custom Fields (PRO)
 
 = 1.0.0 =
 * First version released
