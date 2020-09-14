@@ -15,9 +15,13 @@ svn co http://plugins.svn.wordpress.org/wp-acf-nullify-gatsby/ svn
 echo "- Clean up SVN trunk";
 rm -rf svn/trunk/*
 
-echo "- Copy latest code to SVN trunk";
+echo "- Copy latest code and assets to SVN trunk";
 cp -r src/* svn/trunk/
+cp -r assets/* svn/assets/
+
+echo "- Add to SNV";
 svn add svn/trunk/*
+svn add svn/assets/*
 
 echo "- Create new SVN tag";
 svn cp svn/trunk "svn/tags/$1"
