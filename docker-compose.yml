@@ -1,6 +1,18 @@
 version: "3.2"
 
 services:
+  db:
+    image: mysql
+    restart: always
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: "1"
+    volumes:
+      - db:/var/lib/mysql
+
   wordpress:
     build: .
     restart: always
@@ -17,18 +29,6 @@ services:
       - wordpress:/var/www/html
       - plugins:/var/www/html/wp-content/plugins
       - ./src:/var/www/html/wp-content/plugins/nullify-empty-fields-for-acf
-
-  db:
-    image: mysql:5.7
-    restart: always
-    container_name: mysql
-    environment:
-      MYSQL_DATABASE: exampledb
-      MYSQL_USER: exampleuser
-      MYSQL_PASSWORD: examplepass
-      MYSQL_RANDOM_ROOT_PASSWORD: "1"
-    volumes:
-      - db:/var/lib/mysql
 
 volumes:
   wordpress:
