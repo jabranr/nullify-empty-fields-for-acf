@@ -29,3 +29,7 @@ svn cp svn/trunk "svn/tags/$1"
 echo "- Release to SVN remote";
 cd svn/
 svn ci -m "Release version $1" --username jabranr
+
+echo "- Tag the release and push";
+git tag $1 -m "Release v$1"
+git push --tags

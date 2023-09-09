@@ -5,7 +5,7 @@
  * Plugin URI: https://github.com/jabranr/nullify-empty-fields-for-acf
  * Description: Set Advanced Custom Fields (ACF) empty field value as <code>null</code> instead of <code>false</code> to avoid GraphQL error in GatsbyJS.
  * Author: Jabran Rafique <hello@jabran.me>
- * Version: 1.2.3
+ * Version: 1.2.4
  * Author URI: https://jabran.me?utm_source=nullify-empty-fields-for-acf
  * License: MIT License
  *
